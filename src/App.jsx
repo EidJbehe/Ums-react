@@ -13,7 +13,7 @@ export default function App() {
     <Routes>
       <Route path="/users" element={<Users />} />
       <Route path="/addUser" element={<AddUser />} />
-      <Route path="/user" element={<User />} />
+      <Route path="/users/:id" element={<User />} />
     </Routes>
     <Footer />
     

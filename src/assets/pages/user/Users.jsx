@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import useFetch from "../../components/useFetch/useFetch";
+import { Link } from "react-router-dom";
 
 export default function Users() {
-  const{data,isError ,isLoading} = useFetch("users");
+  const { data, isError, isLoading } = useFetch("users");
 
   if (isError) {
     return <div className="text-danger">{isError}</div>;
@@ -19,19 +20,22 @@ export default function Users() {
         <thead>
           <tr>
             <th>Name</th>
-            <th>email</th>
-            <th>Image</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {data.users.map((user) => {
             return (
               <tr key={user.id}>
-               <td> <h3>{user.name}</h3></td>
-             <td><p>{user.email}</p></td>   
-               <td><img src={user.imageUrl} width="200px" alt={user.name} /></td> 
+                <td>
+                  <h3>{user.name}</h3>
+                </td>
+                <td>
+                  <Link to={`/users/${user.id}`} className="btn btn-outline-success">
+                    Details
+                  </Link>
+                </td>
               </tr>
-             
             );
           })}
         </tbody>
