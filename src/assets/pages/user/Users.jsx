@@ -1,25 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import useFetch from "../../components/useFetch/useFetch";
 
 export default function Users() {
-  const [users, setUseres] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState("");
+  const{data,isError ,isLoading} = useFetch("users");
 
-  const getUesrs = async () => {
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_BURL}/users`);
-
-      setUseres(response.data.users);
-    } catch (error) {
-      setIsError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    getUesrs();
-  }, []);
   if (isError) {
     return <div className="text-danger">{isError}</div>;
   }
@@ -39,7 +24,7 @@ export default function Users() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => {
+          {data.users.map((user) => {
             return (
               <tr key={user.id}>
                <td> <h3>{user.name}</h3></td>
