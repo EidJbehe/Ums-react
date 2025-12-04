@@ -2,19 +2,44 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import useFetch from "../../components/useFetch/useFetch";
 import { Link } from "react-router-dom";
+import { toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Users() {
   const { data, isError, isLoading } = useFetch("users");
   const deleteUser=async(id)=>{
     try{
       const response=await axios.delete(`${import.meta.env.VITE_BURL}/users/${id}`);
-      console.log(response.data);
+      console.log(response);
+      if(response.status===200){
+     toast.success('User deleted succesfully', {
+position: "top-right",
+autoClose: 1000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "light",
+transition: Bounce,
+})
     }
+  }
     catch(error){
-      console.log(error.message);
+ toast.error('Eroor ', {
+position: "top-right",
+autoClose: 1000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "light",
+transition: Bounce,
+});
     }
     finally{
-      
+
     }
     
   }
@@ -26,6 +51,7 @@ export default function Users() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+  
 
   return (
     <>
